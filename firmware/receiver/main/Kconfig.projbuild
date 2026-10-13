@@ -1,0 +1,10 @@
+menu "Wi-Fi Radar"
+
+config RADAR_RSSI_FALLBACK
+    bool "Build RSSI-only receiver fallback"
+    default n
+    help
+        Enable this if CSI capture fails on the configured ESP32-WROOM-32 build.
+        Movement sensing then uses RSSI and is less sensitive.
+
+endmenu
