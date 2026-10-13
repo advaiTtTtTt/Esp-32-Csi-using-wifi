@@ -1,6 +1,3 @@
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
-Failed to create stream fd: Operation not permitted
 # Wi-Fi Radar
 
 A low-cost, device-free movement detector for a B.Tech wireless technology mini project. A transmitting ESP32 sends small Wi-Fi packets; a receiving ESP32 extracts Channel State Information (CSI) and forwards measurements over USB serial to a Python dashboard. The dashboard calibrates a quiet-room baseline and flags sustained signal changes.
