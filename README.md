@@ -28,10 +28,11 @@ The receiver runs a private Wi-Fi access point (`WIFI_RADAR`, channel 6), so the
 
 ## Run the dashboard without hardware
 
-Python 3.10 or later is required. From Ubuntu:
+Python 3.10 or later is required. Clone the repository, then run these commands from its root:
 
 ```bash
-cd /home/advait/Documents/Codex/2026-10-13/files-pasted-by-the-user-project/outputs/wifi-radar
+git clone https://github.com/advaiTtTtTt/Esp-32-Csi-using-wifi.git
+cd Esp-32-Csi-using-wifi
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
@@ -65,10 +66,10 @@ Keep the ESP-IDF environment activated in each terminal used for firmware comman
    ls /dev/ttyUSB* /dev/ttyACM* 2>/dev/null
    ```
 
-2. Build and flash receiver firmware (replace the port as needed):
+2. From the project root, build and flash receiver firmware (replace the port as needed):
 
    ```bash
-   cd /home/advait/Documents/Codex/2026-10-13/files-pasted-by-the-user-project/outputs/wifi-radar/firmware/receiver
+   cd firmware/receiver
    idf.py set-target esp32
    idf.py build
    idf.py -p /dev/ttyUSB0 flash monitor
@@ -76,10 +77,10 @@ Keep the ESP-IDF environment activated in each terminal used for firmware comman
 
    It starts the access point and writes newline-delimited JSON for each CSI measurement. Press `Ctrl+]` to close the serial monitor before opening the dashboard; only one program can own the receiver's serial port at a time.
 
-3. Connect the **transmitter** board, open another terminal with ESP-IDF activated, and flash it:
+3. Connect the **transmitter** board, open another terminal with ESP-IDF activated at the project root, and flash it:
 
    ```bash
-   cd /home/advait/Documents/Codex/2026-10-13/files-pasted-by-the-user-project/outputs/wifi-radar/firmware/transmitter
+   cd firmware/transmitter
    idf.py set-target esp32
    idf.py build
    idf.py -p /dev/ttyUSB1 flash monitor
@@ -87,10 +88,10 @@ Keep the ESP-IDF environment activated in each terminal used for firmware comman
 
    Its serial log should report a connection to the receiver access point. It sends one short UDP packet every 100 ms. The receiver's CSI callback measures the received packets.
 
-4. Stop the transmitter's monitor with `Ctrl+]`. Reconnect the receiver to the laptop if needed, activate the Python virtual environment, and run:
+4. Stop the transmitter's monitor with `Ctrl+]`. Reconnect the receiver to the laptop if needed, return to the project root, activate the Python virtual environment, and run:
 
    ```bash
-   cd /home/advait/Documents/Codex/2026-10-13/files-pasted-by-the-user-project/outputs/wifi-radar
+   cd ../..
    source .venv/bin/activate
    streamlit run app.py
    ```
@@ -106,7 +107,7 @@ The built-in network is WPA2 with example credentials `WIFI_RADAR` / `radarpass`
 If CSI capture fails, rebuild the receiver for RSSI-only sampling:
 
 ```bash
-cd /home/advait/Documents/Codex/2026-10-13/files-pasted-by-the-user-project/outputs/wifi-radar/firmware/receiver
+cd firmware/receiver
 idf.py menuconfig
 ```
 
